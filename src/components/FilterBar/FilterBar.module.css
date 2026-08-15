@@ -9,10 +9,35 @@
   border-bottom: var(--border);
 }
 
+/* タグと並び順のまとまり。狭い画面ではボタンで開くまで畳んでおく */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.panel[data-collapsed='true'] {
+  display: none;
+}
+
 /* --- column: 縦積み ------------------------------------------------------ */
 .bar[data-layout='column'] {
   flex-direction: column;
   align-items: stretch;
+}
+
+/* 検索 → タグ・並び順 → 表示切替 の順に見せる。
+   DOM 順（＝読み上げとタブ移動の順）は変えずに order だけで並べ替える */
+.bar[data-layout='column'] .search {
+  order: 0;
+}
+
+.bar[data-layout='column'] .panel {
+  order: 1;
+}
+
+.bar[data-layout='column'] .meta {
+  order: 2;
 }
 
 /* --- row: 横並び --------------------------------------------------------- */
@@ -30,10 +55,17 @@
   min-width: 180px;
 }
 
-/* タグは数が多いので上帯では丸ごと次の行へ送り、その中で折り返させる。
-   order で DOM 順を変えずに「検索・ソート・件数」の下へ回す */
-.bar[data-layout='row'] .tags {
+/* タグと並び順は丸ごと次の行へ送り、その中で折り返させる */
+.bar[data-layout='row'] .panel {
   order: 1;
+  flex: 0 1 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.bar[data-layout='row'] .tags {
   flex: 0 1 100%;
 }
 
@@ -41,7 +73,7 @@
   flex: 0 1 auto;
 }
 
-/* ソート・表示切替・件数は右側にまとめる */
+/* 表示切替は右端に寄せる */
 .bar[data-layout='row'] .meta {
   flex: 0 0 auto;
   margin-left: auto;
@@ -55,32 +87,43 @@
   gap: var(--sp-2);
 }
 
-.count {
-  display: flex;
-  flex: 1 1 auto;
+/* 絞り込みパネルの開閉ボタン。狭い画面にだけ出る */
+.toggle {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
-  gap: var(--sp-2);
-  font-size: 12px;
-  color: var(--plum-60);
-}
-
-.count strong {
-  font-size: 16px;
-  color: var(--pink);
-}
-
-.reset {
-  margin-left: auto;
-  padding: 4px 12px;
+  justify-content: center;
+  min-width: 40px;
+  padding: 8px 10px;
   border: var(--border);
   border-radius: var(--radius-chip);
   background: var(--white);
-  font-size: 11px;
-  font-weight: var(--fw-bold);
+  box-shadow: var(--shadow-pop-sm);
+  transition: background var(--dur) linear, color var(--dur) linear;
 }
 
-.reset:hover {
+.toggle[data-on='true'] {
+  background: var(--pink);
+  color: var(--white);
+}
+
+/* 閉じていても絞り込み中だと分かるバッジ */
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border: var(--border-w) solid var(--plum);
+  border-radius: var(--radius-chip);
   background: var(--yellow);
+  color: var(--plum);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
 }
 
 /* モバイルは横余白を詰める */
@@ -93,12 +136,12 @@
     padding: var(--sp-3);
   }
 
-  /* 狭い画面は縦を1行でも削りたいので、並べ替えて詰める。
-     1行目: 検索 + 表示切替 + 件数 / 2行目: 並び順 + お気に入り / 3行目: タグ
-     order だけで動かすので DOM 順（＝読み上げとタブ移動の順）は変えていない。 */
-  .bar[data-layout='row'] .search {
-    flex: 1 1 150px;
-    min-width: 130px;
+  /* 1行目に検索・絞り込みボタン・表示切替を収める。
+     タグと並び順はボタンを押したときだけ2行目に出る。 */
+  .bar[data-layout='row'] .search,
+  .bar[data-layout='column'] .search {
+    flex: 1 1 140px;
+    min-width: 120px;
   }
 
   .bar[data-layout='row'] .meta {
@@ -107,12 +150,17 @@
     margin-left: 0;
   }
 
-  .bar[data-layout='row'] .sort {
-    order: 1;
-    flex: 1 0 100%;
+  /* 狭いと縦積みでは収まらないので、横並びにして折り返させる */
+  .bar[data-layout='column'] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
-  .bar[data-layout='row'] .tags {
-    order: 2;
+  .bar[data-layout='column'] .panel,
+  .bar[data-layout='row'] .panel {
+    order: 3;
+    flex: 0 1 100%;
   }
+
 }

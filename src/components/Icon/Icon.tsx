@@ -21,6 +21,8 @@ export type IconName =
   | 'mapPin'
   | 'utensils'
   | 'searchOff'
+  | 'filter'
+  | 'chevronUp'
 
 type Props = {
   name: IconName
@@ -116,6 +118,9 @@ const PATHS: Record<IconName, React.ReactNode> = {
       <path d="M17.5 12.8v8.4" />
     </>
   ),
+  // 漏斗。上から入れて絞り込む形
+  filter: <path d="M3.5 4.5h17l-6.6 7.8v6.1l-3.8 2.1v-8.2z" />,
+  chevronUp: <path d="m5 15 7-7 7 7" />,
   // 見つからない: 虫めがねに×
   searchOff: (
     <>

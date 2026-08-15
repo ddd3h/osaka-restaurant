@@ -1,11 +1,21 @@
 /* 絞り込みUI（検索・タグ・並び順・件数）のスタイルは FilterBar.module.css へ移した。
    ここに残すのはサイドバーの器（ヘッダーと結果リストの枠）だけ。 */
+/* 見出し / 絞り込み / 件数 / 一覧 の4段 */
 .sidebar {
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto minmax(0, 1fr);
   height: 100%;
   min-height: 0;
   background: var(--cream);
+}
+
+/* 件数と表示切替は一覧の直前に置く。数えている対象のすぐ上にあるほうが分かりやすく、
+   絞り込みバーの横幅も食わない */
+.results {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4) 0;
 }
 
 .header {
@@ -41,5 +51,9 @@
 
   .scroll {
     padding-bottom: max(var(--sp-6), env(safe-area-inset-bottom));
+  }
+
+  .results {
+    padding: var(--sp-2) var(--sp-3) 0;
   }
 }

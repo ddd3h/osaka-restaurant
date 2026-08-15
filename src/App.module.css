@@ -83,11 +83,26 @@
   min-width: 0;
 }
 
+/* 件数（固定）+ スクロールするグリッド の2段。
+   スクロールは RestaurantGrid が自分で持つので、ここでは持たない（入れ子にしない）。 */
 .gridBody {
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: var(--sp-4) var(--sp-4) var(--sp-6);
-  scrollbar-width: thin;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.gridCount {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4) 0;
+}
+
+@media (max-width: 899px) {
+  .gridCount {
+    padding: var(--sp-2) var(--sp-3) 0;
+  }
 }
 
 /* --- 見つからないお店 --- */

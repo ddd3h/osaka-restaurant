@@ -6,6 +6,8 @@ import { EmptyState } from '../EmptyState/EmptyState'
 import { Icon } from '../Icon/Icon'
 import { FilterBar } from '../FilterBar/FilterBar'
 import { RestaurantList } from '../RestaurantList/RestaurantList'
+import { ResultCount } from '../ResultCount/ResultCount'
+import { ViewToggle } from '../ViewToggle/ViewToggle'
 import type { SortKey } from '../../types'
 import styles from './Sidebar.module.css'
 
@@ -49,12 +51,19 @@ export function Sidebar({
         filters={filters}
         favorites={favorites}
         geo={geo}
-        totalCount={totalCount}
         onSortChange={onSortChange}
-        mode={mode}
-        onModeChange={onModeChange}
         layout="column"
       />
+
+      <div className={styles.results}>
+        <ResultCount
+          shown={results.length}
+          total={totalCount}
+          isActive={filters.isActive}
+          onReset={filters.reset}
+        />
+        <ViewToggle mode={mode} onChange={onModeChange} />
+      </div>
 
       <div className={styles.scroll}>
         {results.length === 0 ? (

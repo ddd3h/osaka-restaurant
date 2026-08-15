@@ -5,6 +5,8 @@ import { Icon } from './components/Icon/Icon'
 import { FilterBar } from './components/FilterBar/FilterBar'
 import { MobileSheet } from './components/MobileSheet/MobileSheet'
 import { RestaurantGrid } from './components/RestaurantGrid/RestaurantGrid'
+import { ResultCount } from './components/ResultCount/ResultCount'
+import { ViewToggle } from './components/ViewToggle/ViewToggle'
 import { Sidebar } from './components/Sidebar/Sidebar'
 import { useFavorites } from './hooks/useFavorites'
 import { useFilters } from './hooks/useFilters'
@@ -115,16 +117,23 @@ export default function App() {
                 filters={filters}
                 favorites={favorites}
                 geo={geo}
-                totalCount={restaurants.length}
                 onSortChange={handleSortChange}
-                mode={mode}
-                onModeChange={setMode}
                 layout="row"
               />
             </div>
           </div>
 
           <div className={styles.gridBody}>
+            <div className={styles.gridCount}>
+              <ResultCount
+                shown={filters.results.length}
+                total={restaurants.length}
+                isActive={filters.isActive}
+                onReset={filters.reset}
+              />
+              <ViewToggle mode={mode} onChange={setMode} />
+            </div>
+
             <RestaurantGrid
               items={filters.results}
               selectedId={selectedId}
