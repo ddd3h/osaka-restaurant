@@ -16,6 +16,8 @@ type Props = {
   onReset: () => void
   /** 地図パネル。App が MapView を入れて渡す（グリッドは MapView を import しない） */
   mapSlot: ReactNode
+  /** ルート（スクロールする箱）に足すクラス。件数と表示切替を重ねる位置合わせに使う */
+  className?: string
 }
 
 /** 写真タイルを敷き詰めるグリッド表示。地図は最初の子として置き、広い画面では右上に寄せる。 */
@@ -28,6 +30,7 @@ export function RestaurantGrid({
   onToggleFavorite,
   onReset,
   mapSlot,
+  className,
 }: Props) {
   const refs = useRef(new Map<string, HTMLDivElement>())
   const empty = items.length === 0
@@ -39,7 +42,7 @@ export function RestaurantGrid({
   }, [selectedId])
 
   return (
-    <div className={styles.wrap}>
+    <div className={className ? `${styles.wrap} ${className}` : styles.wrap}>
       {/* 0件でも地図は残す。タイルは描かず、下に EmptyState を出す */}
       <div className={styles.grid} data-empty={empty}>
         <div className={styles.mapCard}>{mapSlot}</div>

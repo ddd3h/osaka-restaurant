@@ -124,6 +124,8 @@ export default function App() {
           </div>
 
           <div className={styles.gridBody}>
+            {/* 件数と表示切替はグリッドに重ねて浮かせる（Sidebar の .results と同じ扱い）。
+                自分の行を持たないぶん、グリッドが縦いっぱいまで伸びる。 */}
             <div className={styles.gridCount}>
               <ResultCount
                 shown={filters.results.length}
@@ -135,6 +137,7 @@ export default function App() {
             </div>
 
             <RestaurantGrid
+              className={styles.gridScroll}
               items={filters.results}
               selectedId={selectedId}
               favorites={favorites.favorites}

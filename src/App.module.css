@@ -83,25 +83,41 @@
   min-width: 0;
 }
 
-/* 件数（固定）+ スクロールするグリッド の2段。
-   スクロールは RestaurantGrid が自分で持つので、ここでは持たない（入れ子にしない）。 */
+/* 件数と表示切替はスクロールするグリッドに重ねて浮かせる。
+   絞り込みバーと違って高さが変わらないので、絶対配置ではなく
+   グリッドを1セルにして両方を同じ場所に重ねている（Sidebar と同じやり方）。 */
 .gridBody {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   min-height: 0;
   overflow: hidden;
 }
 
+.gridCount,
+.gridScroll {
+  grid-row: 1;
+  grid-column: 1;
+}
+
 .gridCount {
+  z-index: 2;
   display: flex;
+  align-self: start;
   align-items: center;
   gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4) 0;
+  /* 上に詰めるほど、地図タイルに重なる面積が減る */
+  padding: var(--sp-1) var(--sp-4) 0;
+  /* 帯の余白部分では下のグリッドを操作できるようにする */
+  pointer-events: none;
+}
+
+.gridCount > * {
+  pointer-events: auto;
 }
 
 @media (max-width: 899px) {
   .gridCount {
-    padding: var(--sp-2) var(--sp-3) 0;
+    padding: var(--sp-1) var(--sp-3) 0;
   }
 }
 
