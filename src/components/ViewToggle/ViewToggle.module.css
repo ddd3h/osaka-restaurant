@@ -1,36 +1,31 @@
-/* SortControl の .segment と同じ見た目に揃える（枠つき・中を border-left で分割） */
+/* 一覧の直前に置く小さな切り替え。枠や下地を持たせると帯のように見えて
+   結果の邪魔をするので、背景なしでアイコンだけを並べる。
+   選ばれているほうを色で示し、押せることはホバーの下地で伝える。 */
 .segment {
   display: inline-flex;
-  border: var(--border);
-  border-radius: var(--radius-chip);
-  overflow: hidden;
-  background: var(--white);
-  box-shadow: var(--shadow-pop-sm);
+  gap: 2px;
 }
 
-/* アイコン1文字ぶん。タップ領域が小さくなりすぎないよう最低幅を持たせる */
+/* アイコン1つぶん。タップ領域が小さくなりすぎないよう最低幅を持たせる */
 .segment button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  padding: 8px 10px;
-  font-size: 15px;
+  min-width: 34px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  color: var(--plum-60);
   line-height: 1;
-  font-weight: var(--fw-bold);
-  white-space: nowrap;
   transition: background var(--dur) linear, color var(--dur) linear;
 }
 
-.segment button + button {
-  border-left: var(--border);
-}
-
+/* 色だけだと選択が伝わりにくいので下線も引く。下地は敷かない */
 .segment button[data-active='true'] {
-  background: var(--pink);
-  color: var(--white);
+  color: var(--pink);
+  box-shadow: inset 0 -2px 0 var(--pink);
 }
 
 .segment button:not([data-active='true']):hover {
   background: var(--pink-soft);
+  color: var(--plum);
 }
