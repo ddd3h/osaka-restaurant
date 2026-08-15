@@ -22,7 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # 依存のいくつかが node>=22 を要求する（@testing-library/jest-dom など）
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npm test -- --run
@@ -30,7 +31,11 @@ jobs:
         env:
           # リポジトリ名が変わっても base が自動で追従する
           VITE_BASE: /${{ github.event.repository.name }}/
+      # enablement: true にしておくと、リポジトリの Pages がまだ有効でなくても
+      # ワークフロー側から有効化する（手作業の設定なしで初回デプロイが通る）
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
