@@ -12,14 +12,25 @@
       content="大阪のおいしいお店を地図とタグで探せるガイド。粉モン、大阪ぽい店、一人でも入れる店。"
     />
 
+    <!-- SNS のカードは相対パスを解決してくれないクローラーが多いので、必ず絶対URLで書く。
+         %VITE_SITE_URL% はビルド時に .env の値へ置き換わる（末尾スラッシュ込み）。 -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="大阪めしMAP" />
+    <meta property="og:site_name" content="大阪めしMAP" />
+    <meta property="og:url" content="%VITE_SITE_URL%" />
+    <meta property="og:title" content="大阪めしMAP — ぼくのすきな大阪のごはん" />
     <meta
       property="og:description"
       content="大阪のおいしいお店を地図とタグで探せるガイド。粉モン、大阪ぽい店、一人でも入れる店。"
     />
-    <meta property="og:image" content="./ogp.svg" />
+    <meta property="og:image" content="%VITE_SITE_URL%ogp.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="大阪めしMAP — たこ焼き・お好み焼き・串カツと通天閣のイラスト" />
+    <meta property="og:locale" content="ja_JP" />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="%VITE_SITE_URL%ogp.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

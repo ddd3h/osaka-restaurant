@@ -108,3 +108,19 @@ GitHub Pages ではサイトが `/osaka-restaurant/` 配下に載るので、
 - 表示中の枚数は内部 state なので、**呼び出し側が `key={r.id}` を渡して**
   店が変わったらコンポーネントごと作り直す。`DetailPanel.tsx` がそうしている。
   これを外すと前の店の「3枚目」が次の店に引き継がれる。
+
+---
+
+## SNS カード（OGP）
+
+X や LINE に貼ったときに出る画像は `public/ogp.jpg`（**1200x630**）。
+差し替えるときは同じ寸法に揃える。比率が違うと切り取られる。
+
+**参照は絶対URLで書くこと。** 相対パスを解決してくれないクローラーが多い。
+`index.html` の `%VITE_SITE_URL%` がビルド時に `.env` の値へ置き換わる仕組みにしてあるので、
+**公開先を変えたら `.env` の `VITE_SITE_URL` も末尾スラッシュ込みで直す**。
+
+反映を確認したいときは、各社のデバッガにURLを入れてキャッシュを更新する:
+
+- X: https://cards-dev.twitter.com/validator
+- Facebook: https://developers.facebook.com/tools/debug/

@@ -26,7 +26,7 @@ src/
   index.css   デザイントークン（色・影・角丸・フォント）はすべてここ
 public/
   photos/     1枚だけの店のフォールバック写真（加工されず、そのままのパスで配信）
-  favicon.svg / ogp.svg
+  favicon.svg / ogp.jpg（SNS カード用。1200x630）
 ```
 
 ## データの流れ
