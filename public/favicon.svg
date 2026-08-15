@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="16" fill="#FF2E88" />
+  <!-- たこ焼き 3個 -->
+  <g stroke="#1A1533" stroke-width="3">
+    <circle cx="22" cy="26" r="12" fill="#FFC400" />
+    <circle cx="43" cy="30" r="11" fill="#FFC400" />
+    <circle cx="31" cy="46" r="11" fill="#FFC400" />
+  </g>
+  <!-- ソース -->
+  <g fill="#1A1533" opacity="0.75">
+    <ellipse cx="22" cy="20" rx="7" ry="3" />
+    <ellipse cx="43" cy="24" rx="6" ry="2.5" />
+    <ellipse cx="31" cy="40" rx="6" ry="2.5" />
+  </g>
+  <!-- 青のり -->
+  <g fill="#00D9C0">
+    <rect x="17" y="28" width="4" height="2" rx="1" />
+    <rect x="25" y="31" width="3" height="2" rx="1" />
+    <rect x="40" y="33" width="4" height="2" rx="1" />
+    <rect x="28" y="48" width="4" height="2" rx="1" />
+  </g>
+</svg>

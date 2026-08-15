@@ -1,0 +1,44 @@
+.sheet {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: var(--cream);
+  border-top: var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: 0 -4px 0 var(--plum);
+  transition: height 240ms var(--ease);
+}
+
+.sheet[data-dragging='true'] {
+  transition: none;
+}
+
+.handle {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  /* 指で掴みやすい高さを確保する */
+  height: 32px;
+  touch-action: none;
+}
+
+.grip {
+  width: 52px;
+  height: 6px;
+  background: var(--plum);
+  border-radius: var(--radius-chip);
+  opacity: 0.35;
+}
+
+.handle:active .grip {
+  opacity: 0.8;
+}
+
+.content {
+  min-height: 0;
+  overflow: hidden;
+}

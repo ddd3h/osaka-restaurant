@@ -1,0 +1,45 @@
+/* 絞り込みUI（検索・タグ・並び順・件数）のスタイルは FilterBar.module.css へ移した。
+   ここに残すのはサイドバーの器（ヘッダーと結果リストの枠）だけ。 */
+.sidebar {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+  background: var(--cream);
+}
+
+.header {
+  padding: var(--sp-4) var(--sp-4) var(--sp-2);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 24px;
+  letter-spacing: 0.01em;
+}
+
+.lead {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--plum-60);
+}
+
+.scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--sp-3) var(--sp-3) var(--sp-6);
+  scrollbar-width: thin;
+}
+
+/* モバイルではシートの高さが限られるので、見出しは地図側のバッジに任せる */
+@media (max-width: 899px) {
+  .header {
+    display: none;
+  }
+
+  .scroll {
+    padding-bottom: max(var(--sp-6), env(safe-area-inset-bottom));
+  }
+}

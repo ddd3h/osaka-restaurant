@@ -1,0 +1,74 @@
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+import { RestaurantCard } from './RestaurantCard'
+import { makeRestaurant } from '../../test/fixtures'
+import type { ListedRestaurant } from '../../types'
+
+const noop = () => {}
+
+function renderCard(restaurant: ListedRestaurant) {
+  return render(
+    <RestaurantCard
+      restaurant={restaurant}
+      selected={false}
+      favorite={false}
+      onSelect={noop}
+      onHover={noop}
+      onToggleFavorite={noop}
+    />,
+  )
+}
+
+describe('RestaurantCard のサムネ', () => {
+  it('gallery に写真があれば写真を出し、絵文字は出さない', () => {
+    // photo を渡すと fixtures 側の toIndexed() が gallery を1枚ぶん組み立てる
+    const { container } = renderCard(
+      makeRestaurant({ photo: 'photos/wanaka.svg', emoji: '🐙' }),
+    )
+
+    const img = container.querySelector('img')
+    expect(img).not.toBeNull()
+    expect(img?.getAttribute('src')).toContain('photos/wanaka.svg')
+    expect(screen.queryByText('🐙')).toBeNull()
+  })
+
+  it('gallery が空なら絵文字にフォールバックする', () => {
+    const { container } = renderCard(makeRestaurant({ photo: undefined, emoji: '🦊' }))
+
+    expect(container.querySelector('img')).toBeNull()
+    expect(screen.getByText('🦊')).toBeInTheDocument()
+  })
+
+  it('gallery の URL は BASE_URL 付きで解決済みのものが使われる', () => {
+    const { container } = renderCard(makeRestaurant({ photo: 'photos/a.svg' }))
+
+    expect(container.querySelector('img')?.getAttribute('src')).toBe(
+      `${import.meta.env.BASE_URL}photos/a.svg`,
+    )
+  })
+
+  it('gallery が複数枚あってもカードは1枚目だけ使う', () => {
+    // カードは代表写真のみ。複数枚を並べるのは DetailPanel 側の仕事
+    const { container } = renderCard({
+      ...makeRestaurant({ emoji: '🍜' }),
+      gallery: [`${import.meta.env.BASE_URL}photos/first.svg`, '/photos/second.svg'],
+    })
+
+    const imgs = container.querySelectorAll('img')
+    expect(imgs).toHaveLength(1)
+    expect(imgs[0]?.getAttribute('src')).toBe(`${import.meta.env.BASE_URL}photos/first.svg`)
+  })
+})
+
+describe('RestaurantCard の食べログ点数', () => {
+  it('小数第2位まで揃えて出す', () => {
+    // JSON では 3.5 として読まれる値。★3.5 と ★3.66 が混ざらないこと
+    renderCard(makeRestaurant({ rating: 3.5 }))
+    expect(screen.getByText('3.50')).toBeInTheDocument()
+  })
+
+  it('点数が無ければ ★ ごと出さない', () => {
+    const { container } = renderCard(makeRestaurant({}))
+    expect(container.textContent).not.toContain('★')
+  })
+})

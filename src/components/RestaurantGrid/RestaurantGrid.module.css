@@ -1,0 +1,67 @@
+/* スクロールするのはグリッド側。ズレ影が切れないよう右下に余白を取る */
+.wrap {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--sp-4) var(--sp-5) var(--sp-5) var(--sp-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sp-4);
+}
+
+/* タイルを包むセル。scrollIntoView の目印と、行の高さ揃えを兼ねる */
+.cell {
+  display: grid;
+  min-width: 0;
+}
+
+/*
+ * 地図パネル。DOM 上はグリッドの最初の子で、明示配置しているので
+ * 自動配置のタイルはこの領域を避けて左と下へ流れ込む（重ならない）。
+ */
+.mapCard {
+  grid-column: span 2;
+  grid-row: span 2;
+  /* 中の地図（height: 100%）が高さを持てるように箱側で下限を決める */
+  min-height: 240px;
+  display: grid;
+  overflow: hidden;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-pop-sm);
+}
+
+/* 広い画面では右上 2列×2行に固定する */
+@media (min-width: 1100px) {
+  .mapCard {
+    grid-column: -3 / -1;
+    grid-row: 1 / 3;
+  }
+}
+
+/* 狭い画面はタイル2列。地図は横幅いっぱいの帯にする */
+@media (max-width: 899px) {
+  .wrap {
+    padding: var(--sp-3) var(--sp-4) var(--sp-4) var(--sp-3);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+
+  .mapCard {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+
+/* 0件のときは地図だけ。右上に寄せず横幅いっぱいで置く */
+.grid[data-empty='true'] .mapCard {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  min-height: 280px;
+}

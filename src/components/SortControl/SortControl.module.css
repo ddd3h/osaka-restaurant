@@ -1,0 +1,102 @@
+.wrap {
+  display: grid;
+  gap: 6px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.segment {
+  display: inline-flex;
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-pop-sm);
+}
+
+.segment button {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+  transition: background var(--dur) linear, color var(--dur) linear;
+}
+
+.segment button + button {
+  border-left: var(--border);
+}
+
+.segment button[data-active='true'] {
+  background: var(--pink);
+  color: var(--white);
+}
+
+.segment button:not([data-active='true']):hover {
+  background: var(--pink-soft);
+}
+
+.fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 7px 12px;
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  background: var(--white);
+  box-shadow: var(--shadow-pop-sm);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  transition: background var(--dur) linear, color var(--dur) linear;
+}
+
+.fav[data-active='true'] {
+  background: var(--pink);
+  color: var(--white);
+}
+
+.fav:not([data-active='true']):hover {
+  background: var(--pink-soft);
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--radius-chip);
+  background: var(--plum);
+  color: var(--white);
+  font-size: 10px;
+}
+
+.note {
+  font-size: 11px;
+  color: var(--plum-60);
+}
+
+/* 横幅が足りないところ（細いサイドバー / 狭い画面の上帯）ではハートだけにする。
+   読み上げ名は aria-label が持っているので、文字を落としても意味は失われない。 */
+.wrap[data-compact='true'] .favLabel {
+  display: none;
+}
+
+.wrap[data-compact='true'] .fav {
+  padding: 7px 10px;
+}
+
+@media (max-width: 899px) {
+  .favLabel {
+    display: none;
+  }
+
+  .fav {
+    padding: 7px 10px;
+  }
+}

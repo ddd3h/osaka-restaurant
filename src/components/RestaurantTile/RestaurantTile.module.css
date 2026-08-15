@@ -1,0 +1,145 @@
+.tile {
+  position: relative;
+  /* セル（.cell）いっぱいに伸ばして同じ行のタイルの高さを揃える */
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-pop-sm);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    background var(--dur) linear;
+}
+
+.tile:hover,
+.tile:focus-within {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-pop);
+}
+
+.tile[data-selected='true'] {
+  background: var(--pink-soft);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-pop);
+}
+
+/* タイル全面をクリック領域にする透明ボタン。♡ より下に敷く */
+.hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius);
+}
+
+/* 写真は大きく。角丸は枠の内側ぶん（--radius - 枠幅）だけ小さくする */
+.photo {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: var(--border);
+  border-radius: calc(var(--radius) - var(--border-w)) calc(var(--radius) - var(--border-w)) 0
+    0;
+  background: var(--yellow-soft);
+  display: grid;
+  place-items: center;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoEmoji {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.body {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+  min-width: 0;
+  padding: var(--sp-3);
+}
+
+.name {
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--plum-60);
+}
+
+.area {
+  padding: 2px 8px;
+  background: var(--mint-soft);
+  border-radius: var(--radius-chip);
+  color: var(--plum);
+  font-weight: var(--fw-bold);
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--plum);
+  font-weight: var(--fw-bold);
+}
+
+.rating svg {
+  color: var(--yellow);
+  stroke: var(--plum);
+  stroke-width: 1.6;
+}
+
+.distance {
+  padding: 2px 8px;
+  background: var(--plum);
+  color: var(--white);
+  border-radius: var(--radius-chip);
+  font-weight: var(--fw-bold);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 2px 0 0;
+}
+
+/* ♡ は写真の上に重ねる */
+.fav {
+  position: absolute;
+  z-index: 2;
+  top: var(--sp-2);
+  right: var(--sp-2);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font-size: 17px;
+  line-height: 1;
+  color: var(--plum-60);
+  background: var(--white);
+  border: var(--border);
+  border-radius: 50%;
+  transition: transform var(--dur) var(--ease), color var(--dur) linear,
+    background var(--dur) linear;
+}
+
+.fav:hover {
+  transform: scale(1.12);
+}
+
+.fav[data-on='true'] {
+  background: var(--pink);
+  color: var(--white);
+}

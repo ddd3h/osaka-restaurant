@@ -1,0 +1,174 @@
+/* ==========================================================================
+   大阪めしMAP — グローバルスタイル
+   デザイントークンはすべてここに集約する。
+   各コンポーネントの *.module.css では生の16進数を書かず var() を参照すること。
+   ========================================================================== */
+
+:root {
+  /* --- パレット: ネオ大阪 / ビビッドポップ --- */
+  --pink: #ff2e88; /* 主アクセント: ピン、選択、CTA */
+  --pink-soft: #ffd9e9; /* ピンクの淡い面 */
+  --yellow: #ffc400; /* タグ、星、ハイライト */
+  --yellow-soft: #fff0bf;
+  --mint: #00d9c0; /* サブアクセント: 距離、トグル */
+  --mint-soft: #cdf7f1;
+  --plum: #1a1533; /* 文字・ボーダー・影 */
+  --plum-60: #6b6483; /* 補助テキスト */
+  --cream: #fff8f0; /* ページ背景 */
+  --white: #ffffff; /* カード面 */
+
+  /* タグチップ用パレット（lib/tagColor.ts が index で参照する） */
+  --tag-0: #ff2e88;
+  --tag-1: #ffc400;
+  --tag-2: #00d9c0;
+  --tag-3: #7b5cff;
+  --tag-4: #ff7a3d;
+  --tag-5: #3dc2ff;
+  --tag-6: #ff5c9e;
+  --tag-7: #6fd943;
+
+  /* --- 形 --- */
+  --border-w: 2px;
+  --border: var(--border-w) solid var(--plum);
+  --shadow-pop: 4px 4px 0 var(--plum);
+  --shadow-pop-sm: 2px 2px 0 var(--plum);
+  --shadow-pop-lg: 6px 6px 0 var(--plum);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-chip: 999px;
+
+  /* --- 余白 --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+
+  /* --- タイポ --- */
+  --font: 'M PLUS Rounded 1c', system-ui, -apple-system, 'Hiragino Maru Gothic ProN', sans-serif;
+  --fw-normal: 500;
+  --fw-bold: 800;
+
+  /* --- レイアウト --- */
+  --sidebar-w: 380px;
+  --ease: cubic-bezier(0.2, 0.9, 0.3, 1.2); /* 少し跳ねる */
+  --dur: 140ms;
+
+  color-scheme: light;
+}
+
+/* --- リセット --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-weight: var(--fw-normal);
+  color: var(--plum);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  /* iOS のプルリフレッシュで地図がずれるのを防ぐ */
+  overscroll-behavior: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--fw-bold);
+  line-height: 1.3;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+input {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--pink);
+  font-weight: var(--fw-bold);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* --- フォーカスリング: キーボード操作時のみ、必ず見える --- */
+:focus-visible {
+  outline: 3px solid var(--mint);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- スクリーンリーダー専用 --- */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- MapLibre のデフォルトUIをポップ寄りに上書き --- */
+.maplibregl-ctrl-group {
+  border: var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-pop-sm) !important;
+  overflow: hidden;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: var(--border) !important;
+}
+
+.maplibregl-ctrl-attrib {
+  font-family: var(--font);
+  font-size: 10px;
+  border-radius: var(--radius-chip) 0 0 0;
+}
+
+/* --- 動きを減らす設定を尊重 --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

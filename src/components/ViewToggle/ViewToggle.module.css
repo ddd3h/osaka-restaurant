@@ -1,0 +1,36 @@
+/* SortControl の .segment と同じ見た目に揃える（枠つき・中を border-left で分割） */
+.segment {
+  display: inline-flex;
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-pop-sm);
+}
+
+/* アイコン1文字ぶん。タップ領域が小さくなりすぎないよう最低幅を持たせる */
+.segment button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  padding: 8px 10px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+  transition: background var(--dur) linear, color var(--dur) linear;
+}
+
+.segment button + button {
+  border-left: var(--border);
+}
+
+.segment button[data-active='true'] {
+  background: var(--pink);
+  color: var(--white);
+}
+
+.segment button:not([data-active='true']):hover {
+  background: var(--pink-soft);
+}

@@ -1,0 +1,177 @@
+.shell {
+  position: relative;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.aside {
+  flex: 0 0 var(--sidebar-w);
+  min-width: 0;
+  border-right: var(--border);
+  z-index: 1;
+}
+
+.mapArea {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* モバイルはサイドバーの見出しを隠すかわりに、地図の上へタイトルを浮かせる */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  z-index: 5;
+  top: max(var(--sp-3), env(safe-area-inset-top));
+  left: var(--sp-3);
+  padding: 7px 14px;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  box-shadow: var(--shadow-pop-sm);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.mapLoading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--plum-60);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  background: var(--cream);
+}
+
+/* --- グリッドモード --- */
+
+/* 上帯（絞り込み）+ スクロールするグリッド領域の2段。
+   .shell が flex なので、横幅は自分で伸ばす */
+.gridShell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  background: var(--cream);
+}
+
+.gridBar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: var(--border);
+  background: var(--cream);
+}
+
+.gridBrand {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+/* FilterBar は帯の余りを全部使う。min-width:0 が無いと中身が縮まない */
+.gridBarMain {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.gridBody {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--sp-4) var(--sp-4) var(--sp-6);
+  scrollbar-width: thin;
+}
+
+/* --- 見つからないお店 --- */
+
+.notFound {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: min(340px, calc(100% - var(--sp-6)));
+  padding: var(--sp-5) var(--sp-4);
+  text-align: center;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-pop-lg);
+}
+
+.notFoundEmoji {
+  line-height: 0;
+  color: var(--plum-60);
+}
+
+.notFoundTitle {
+  font-weight: var(--fw-bold);
+}
+
+.notFoundText {
+  font-size: 12px;
+  color: var(--plum-60);
+}
+
+.notFoundBack {
+  margin-top: var(--sp-2);
+  padding: 9px 18px;
+  background: var(--yellow);
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  box-shadow: var(--shadow-pop-sm);
+  font-weight: var(--fw-bold);
+  font-size: 13px;
+}
+
+.notFoundBack:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-pop);
+}
+
+@media (max-width: 899px) {
+  .aside {
+    display: none;
+  }
+
+  /* 狭いと帯に収まらないので、見出しと絞り込みを折り返す */
+  .gridBar {
+    flex-wrap: wrap;
+    padding: var(--sp-2) var(--sp-3) var(--sp-3);
+    padding-top: max(var(--sp-2), env(safe-area-inset-top));
+  }
+
+  /* 狭い画面では見出しの1行ぶんを絞り込みに譲る。
+     ただし要素は消さずに視覚だけ隠す（ページの h1 は残しておきたい）。
+     絶対配置になるので flex の行を占有しなくなる。 */
+  .gridBrand {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .gridBarMain {
+    flex-basis: 100%;
+  }
+
+  .gridBody {
+    padding: var(--sp-3) var(--sp-3);
+    padding-bottom: max(var(--sp-6), env(safe-area-inset-bottom));
+  }
+}

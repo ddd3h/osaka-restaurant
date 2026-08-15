@@ -1,0 +1,118 @@
+/* 絞り込みUIの共通ガワ。
+   JSX は両レイアウト共通なので、並びの差はここだけで付ける。
+   - data-layout="column": サイドバー。縦積み（従来の .controls と同じ見た目）
+   - data-layout="row":    グリッドの上帯。横並び + 折り返し */
+.bar {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4) var(--sp-3);
+  border-bottom: var(--border);
+}
+
+/* --- column: 縦積み ------------------------------------------------------ */
+.bar[data-layout='column'] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* --- row: 横並び --------------------------------------------------------- */
+.bar[data-layout='row'] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--cream);
+}
+
+/* 検索欄が余白を吸って伸びる。狭くなりすぎたら折り返す */
+.bar[data-layout='row'] .search {
+  flex: 1 1 240px;
+  min-width: 180px;
+}
+
+/* タグは数が多いので上帯では丸ごと次の行へ送り、その中で折り返させる。
+   order で DOM 順を変えずに「検索・ソート・件数」の下へ回す */
+.bar[data-layout='row'] .tags {
+  order: 1;
+  flex: 0 1 100%;
+}
+
+.bar[data-layout='row'] .sort {
+  flex: 0 1 auto;
+}
+
+/* ソート・表示切替・件数は右側にまとめる */
+.bar[data-layout='row'] .meta {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+/* --- レイアウト共通のパーツ ---------------------------------------------- */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.count {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 12px;
+  color: var(--plum-60);
+}
+
+.count strong {
+  font-size: 16px;
+  color: var(--pink);
+}
+
+.reset {
+  margin-left: auto;
+  padding: 4px 12px;
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  background: var(--white);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+
+.reset:hover {
+  background: var(--yellow);
+}
+
+/* モバイルは横余白を詰める */
+@media (max-width: 899px) {
+  .bar[data-layout='column'] {
+    padding: var(--sp-2) var(--sp-3) var(--sp-3);
+  }
+
+  .bar[data-layout='row'] {
+    padding: var(--sp-3);
+  }
+
+  /* 狭い画面は縦を1行でも削りたいので、並べ替えて詰める。
+     1行目: 検索 + 表示切替 + 件数 / 2行目: 並び順 + お気に入り / 3行目: タグ
+     order だけで動かすので DOM 順（＝読み上げとタブ移動の順）は変えていない。 */
+  .bar[data-layout='row'] .search {
+    flex: 1 1 150px;
+    min-width: 130px;
+  }
+
+  .bar[data-layout='row'] .meta {
+    order: 0;
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+
+  .bar[data-layout='row'] .sort {
+    order: 1;
+    flex: 1 0 100%;
+  }
+
+  .bar[data-layout='row'] .tags {
+    order: 2;
+  }
+}

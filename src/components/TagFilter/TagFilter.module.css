@@ -1,0 +1,99 @@
+.wrap {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--plum-60);
+}
+
+.hint {
+  font-weight: var(--fw-normal);
+  font-size: 11px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px 6px 12px;
+  border: var(--border-w) solid var(--plum);
+  border-radius: var(--radius-chip);
+  background: var(--white);
+  color: var(--plum);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    background var(--dur) linear;
+}
+
+.chip:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-pop-sm);
+}
+
+/* 選択中はそのタグの色で塗る */
+.chip[data-selected='true'] {
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  box-shadow: var(--shadow-pop-sm);
+  transform: translate(-1px, -1px);
+}
+
+/* 押すと0件になる組み合わせは事前に薄く見せる（押すことはできる） */
+.chip[data-empty='true'] {
+  opacity: 0.4;
+}
+
+/* タグではないので、破線の枠で「これは操作」だと分かるようにする */
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px 6px 12px;
+  border: var(--border-w) dashed var(--plum);
+  border-radius: var(--radius-chip);
+  background: transparent;
+  color: var(--plum-60);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  transition: transform var(--dur) var(--ease), background var(--dur) linear,
+    color var(--dur) linear;
+}
+
+.more:hover {
+  transform: translate(-1px, -1px);
+  background: var(--white);
+  color: var(--plum);
+}
+
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--radius-chip);
+  background: var(--plum);
+  color: var(--white);
+  font-size: 10px;
+}
+
+.chip[data-selected='true'] .count {
+  background: var(--plum);
+  color: var(--white);
+}

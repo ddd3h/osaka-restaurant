@@ -1,0 +1,91 @@
+/* 写真ギャラリー: DetailPanel の .hero と地続きに見えるよう
+   16:10 + --yellow-soft 下地 + 下辺 2px プラムを踏襲する。 */
+
+.gallery {
+  display: grid;
+}
+
+/* --- メイン画像 --- */
+.main {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--yellow-soft);
+  border-bottom: var(--border);
+}
+
+.main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 写真0枚のときのフォールバック絵文字 */
+.emoji {
+  font-size: 72px;
+  line-height: 1;
+}
+
+/* --- 枚数バッジ（2枚以上のときだけ出る） --- */
+.badge {
+  position: absolute;
+  right: var(--sp-2);
+  bottom: var(--sp-2);
+  padding: 2px 10px;
+  background: var(--plum);
+  color: var(--white);
+  border-radius: var(--radius-chip);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+}
+
+/* --- サムネ列（2枚以上のときだけ出る） --- */
+.thumbs {
+  display: flex;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  overflow-x: auto;
+  /* 端まで振り切ってもページ本体を横に引っぱらない */
+  overscroll-behavior-x: contain;
+  background: var(--white);
+  border-bottom: var(--border);
+  scrollbar-width: thin;
+}
+
+.thumbs > li {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  background: var(--yellow-soft);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur) linear, box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 選択中はピンク枠 + ズレ影で浮かせる */
+.thumb[aria-pressed='true'] {
+  border-color: var(--pink);
+  box-shadow: var(--shadow-pop-sm);
+  transform: translate(-1px, -1px);
+}
+
+.thumb:hover {
+  border-color: var(--pink);
+}
