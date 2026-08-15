@@ -1,21 +1,37 @@
 /* 絞り込みUI（検索・タグ・並び順・件数）のスタイルは FilterBar.module.css へ移した。
    ここに残すのはサイドバーの器（ヘッダーと結果リストの枠）だけ。 */
-/* 見出し / 絞り込み / 件数 / 一覧 の4段 */
+/* 見出し / 絞り込み / 一覧 の3段。件数と表示切替は一覧と同じセルに重ねる */
 .sidebar {
   display: grid;
-  grid-template-rows: auto auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   height: 100%;
   min-height: 0;
   background: var(--cream);
 }
 
-/* 件数と表示切替は一覧の直前に置く。数えている対象のすぐ上にあるほうが分かりやすく、
-   絞り込みバーの横幅も食わない */
+/* 件数と表示切替は一覧に重ねて浮かせる。
+   自分の行を持たないぶん一覧が縦に伸び、カードは裏を流れていく。
+   絞り込みバーの高さが可変なので、絶対配置ではなく一覧と同じグリッドセルに置く。 */
+.results,
+.scroll {
+  grid-row: 3;
+  grid-column: 1;
+}
+
 .results {
+  z-index: 2;
   display: flex;
+  align-self: start;
   align-items: center;
   gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4) 0;
+  /* 上に詰めるほど、1枚目のカードに重なる面積が減る */
+  padding: var(--sp-1) var(--sp-4) 0;
+  /* 帯の余白部分では下のカードを操作できるようにする */
+  pointer-events: none;
+}
+
+.results > * {
+  pointer-events: auto;
 }
 
 .header {
@@ -54,6 +70,6 @@
   }
 
   .results {
-    padding: var(--sp-2) var(--sp-3) 0;
+    padding: var(--sp-1) var(--sp-3) 0;
   }
 }

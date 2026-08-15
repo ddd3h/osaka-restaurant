@@ -1,26 +1,35 @@
-/* 隣に表示切替が並ぶので、件数側が余白を吸う */
+/* カードの上に浮くので、文字が写真に沈まないよう丸い下地を敷く。
+   右端はカードの♡ボタンとぶつかるので、切替は件数のとなりに置く。 */
 .count {
-  display: flex;
-  flex: 1 1 auto;
+  display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
-  gap: var(--sp-2);
-  font-size: 12px;
+  gap: 4px;
+  padding: 4px 12px;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  box-shadow: var(--shadow-pop-sm);
   color: var(--plum-60);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .count strong {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--pink);
 }
 
 .reset {
-  margin-left: auto;
-  padding: 4px 12px;
+  flex: 0 0 auto;
+  padding: 5px 12px;
   border: var(--border);
   border-radius: var(--radius-chip);
   background: var(--white);
+  box-shadow: var(--shadow-pop-sm);
   font-size: 11px;
   font-weight: var(--fw-bold);
+  line-height: 1.5;
 }
 
 .reset:hover {

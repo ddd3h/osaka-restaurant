@@ -1,28 +1,33 @@
-/* 一覧の直前に置く小さな切り替え。枠や下地を持たせると帯のように見えて
-   結果の邪魔をするので、背景なしでアイコンだけを並べる。
-   選ばれているほうを色で示し、押せることはホバーの下地で伝える。 */
+/* 一覧に重ねて浮かせるので、カードの写真の上でも埋もれないよう下地を持たせる。
+   ただし2つでひとつの切り替えなので、間を線で割った**ひと続きのカプセル**にする。
+   高さと縁の見た目は隣に並ぶ件数のピルに揃える。 */
 .segment {
   display: inline-flex;
-  gap: 2px;
+  overflow: hidden;
+  border: var(--border);
+  border-radius: var(--radius-chip);
+  background: var(--white);
+  box-shadow: var(--shadow-pop-sm);
 }
 
-/* アイコン1つぶん。タップ領域が小さくなりすぎないよう最低幅を持たせる */
 .segment button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 34px;
-  padding: 6px 8px;
-  border-radius: var(--radius-sm);
+  width: 38px;
+  height: 26px;
   color: var(--plum-60);
   line-height: 1;
   transition: background var(--dur) linear, color var(--dur) linear;
 }
 
-/* 色だけだと選択が伝わりにくいので下線も引く。下地は敷かない */
+.segment button + button {
+  border-left: var(--border);
+}
+
 .segment button[data-active='true'] {
-  color: var(--pink);
-  box-shadow: inset 0 -2px 0 var(--pink);
+  background: var(--pink);
+  color: var(--white);
 }
 
 .segment button:not([data-active='true']):hover {
