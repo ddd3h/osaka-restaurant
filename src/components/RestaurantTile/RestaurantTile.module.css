@@ -50,11 +50,6 @@
   object-fit: cover;
 }
 
-.photoEmoji {
-  font-size: 56px;
-  line-height: 1;
-}
-
 .body {
   display: grid;
   gap: 5px;

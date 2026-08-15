@@ -43,11 +43,7 @@ export function RestaurantCard({
       </button>
 
       <div className={styles.thumb} aria-hidden="true">
-        {photo ? (
-          <img src={photo} alt="" loading="lazy" />
-        ) : (
-          <span className={styles.thumbEmoji}>{r.emoji}</span>
-        )}
+        {photo && <img src={photo} alt="" loading="lazy" />}
       </div>
 
       <div className={styles.body}>

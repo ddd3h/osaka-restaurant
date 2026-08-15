@@ -22,12 +22,6 @@
   object-fit: cover;
 }
 
-/* 写真0枚のときのフォールバック絵文字 */
-.emoji {
-  font-size: 72px;
-  line-height: 1;
-}
-
 /* --- 枚数バッジ（2枚以上のときだけ出る） --- */
 .badge {
   position: absolute;

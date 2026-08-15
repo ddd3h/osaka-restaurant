@@ -65,7 +65,7 @@ function validate(record: unknown): string | null {
   if (typeof record !== 'object' || record === null) return 'オブジェクトではありません'
   const r = record as Record<string, unknown>
 
-  for (const key of ['id', 'name', 'emoji', 'area', 'comment'] as const) {
+  for (const key of ['id', 'name', 'area', 'comment'] as const) {
     if (typeof r[key] !== 'string' || r[key] === '') return `${key} が空です`
   }
   if (!ID_PATTERN.test(r.id as string)) return 'id は半角英小文字・数字・ハイフンのみ'

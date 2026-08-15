@@ -44,11 +44,7 @@ export function RestaurantTile({
       </button>
 
       <div className={styles.photo} aria-hidden="true">
-        {photo ? (
-          <img src={photo} alt="" loading="lazy" />
-        ) : (
-          <span className={styles.photoEmoji}>{r.emoji}</span>
-        )}
+        {photo && <img src={photo} alt="" loading="lazy" />}
       </div>
 
       <div className={styles.body}>

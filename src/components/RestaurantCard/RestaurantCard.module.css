@@ -48,10 +48,6 @@
   object-fit: cover;
 }
 
-.thumbEmoji {
-  font-size: 40px;
-}
-
 .body {
   display: grid;
   gap: 5px;

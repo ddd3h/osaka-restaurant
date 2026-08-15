@@ -42,11 +42,6 @@
   object-fit: cover;
 }
 
-/* 写真が無い店は絵文字。丸のなかで浮かないよう下地を敷く */
-.pinBubble[data-fallback='true'] {
-  background: var(--yellow-soft);
-}
-
 .pin:hover,
 .pin[data-hovered='true'] {
   transform: scale(1.12);

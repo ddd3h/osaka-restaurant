@@ -7,7 +7,7 @@ const THREE = ['/photos/a.svg', '/photos/b.svg', '/photos/c.svg']
 const NAME = 'たこ焼き たこ吉'
 
 function renderGallery(photos: string[]) {
-  return render(<PhotoGallery photos={photos} name={NAME} fallbackEmoji="🐙" />)
+  return render(<PhotoGallery photos={photos} name={NAME} />)
 }
 
 /** メイン画像は alt が付いている1枚だけ（サムネの img は alt=""） */
@@ -33,10 +33,9 @@ describe('PhotoGallery', () => {
     expect(mainImg().getAttribute('src')).toBe(THREE[0])
   })
 
-  it('写真が0枚なら絵文字を出して img は1枚も無い', () => {
+  it('写真が0枚なら img は1枚も無い', () => {
     const { container } = renderGallery([])
 
-    expect(screen.getByText('🐙')).toBeInTheDocument()
     expect(container.querySelector('img')).toBeNull()
     expect(screen.queryAllByRole('button')).toHaveLength(0)
   })

@@ -67,7 +67,7 @@ export function DetailPanel({ restaurant: r, favorite, onToggleFavorite, onClose
       </button>
 
       {/* key に店の id を渡すと店を切り替えたときギャラリーが作り直され、表示中の写真の位置が引き継がれず必ず1枚目に戻る。 */}
-      <PhotoGallery key={r.id} photos={r.gallery} name={r.name} fallbackEmoji={r.emoji} />
+      <PhotoGallery key={r.id} photos={r.gallery} name={r.name} />
 
       <div className={styles.body}>
         <p className={styles.area}>{r.area}</p>

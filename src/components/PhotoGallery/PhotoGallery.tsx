@@ -7,8 +7,6 @@ type Props = {
   photos: string[]
   /** alt に使う店名 */
   name: string
-  /** photos が空のときに出す絵文字 */
-  fallbackEmoji: string
 }
 
 /**
@@ -19,7 +17,7 @@ type Props = {
  * そのため photos の変化を useEffect で監視して index をリセットする処理は
  * 意図的に書いていない。key を付け忘れると前の店の枚数目が残るので注意。
  */
-export function PhotoGallery({ photos, name, fallbackEmoji }: Props) {
+export function PhotoGallery({ photos, name }: Props) {
   const [index, setIndex] = useState(0)
 
   const total = photos.length
@@ -47,13 +45,9 @@ export function PhotoGallery({ photos, name, fallbackEmoji }: Props) {
   return (
     <div className={styles.gallery} onKeyDown={onKeyDown}>
       <div className={styles.main}>
-        {total > 0 ? (
+        {total > 0 && (
           // 詳細を開いた直後に必ず見える位置なので eager で読む
           <img src={photos[current]} alt={mainAlt} loading="eager" />
-        ) : (
-          <span className={styles.emoji} aria-hidden="true">
-            {fallbackEmoji}
-          </span>
         )}
 
         {hasThumbs && (

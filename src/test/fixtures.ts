@@ -9,7 +9,6 @@ export function makeRestaurant(over: Partial<Restaurant> = {}): IndexedRestauran
   return toIndexed({
     id: `r${seq}`,
     name: `テスト店${seq}`,
-    emoji: '🍚',
     tags: [],
     area: '難波',
     lat: 34.666,

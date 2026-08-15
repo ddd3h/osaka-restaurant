@@ -20,23 +20,19 @@ function renderCard(restaurant: ListedRestaurant) {
 }
 
 describe('RestaurantCard のサムネ', () => {
-  it('gallery に写真があれば写真を出し、絵文字は出さない', () => {
+  it('gallery に写真があれば写真を出す', () => {
     // photo を渡すと fixtures 側の toIndexed() が gallery を1枚ぶん組み立てる
-    const { container } = renderCard(
-      makeRestaurant({ photo: 'photos/wanaka.svg', emoji: '🐙' }),
-    )
+    const { container } = renderCard(makeRestaurant({ photo: 'photos/wanaka.svg' }))
 
     const img = container.querySelector('img')
     expect(img).not.toBeNull()
     expect(img?.getAttribute('src')).toContain('photos/wanaka.svg')
-    expect(screen.queryByText('🐙')).toBeNull()
   })
 
-  it('gallery が空なら絵文字にフォールバックする', () => {
-    const { container } = renderCard(makeRestaurant({ photo: undefined, emoji: '🦊' }))
+  it('gallery が空なら img を出さない', () => {
+    const { container } = renderCard(makeRestaurant({ photo: undefined }))
 
     expect(container.querySelector('img')).toBeNull()
-    expect(screen.getByText('🦊')).toBeInTheDocument()
   })
 
   it('gallery の URL は BASE_URL 付きで解決済みのものが使われる', () => {
@@ -51,7 +47,7 @@ describe('RestaurantCard のサムネ', () => {
     // カードのサムネは 92px 角なので原寸は要らない。
     // 複数枚と原寸を扱うのは DetailPanel 側の仕事。
     const { container } = renderCard({
-      ...makeRestaurant({ emoji: '🍜' }),
+      ...makeRestaurant(),
       cover: '/thumbs/first.webp',
       gallery: ['/photos/first.jpg', '/photos/second.jpg'],
     })

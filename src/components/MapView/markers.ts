@@ -42,10 +42,6 @@ function createPin(r: ListedRestaurant, handlers: Handlers): HTMLButtonElement {
     img.draggable = false
     img.decoding = 'async'
     bubble.appendChild(img)
-  } else {
-    // 写真が無い店は絵文字で代替する
-    bubble.textContent = r.emoji
-    bubble.dataset.fallback = 'true'
   }
 
   el.append(bubble)

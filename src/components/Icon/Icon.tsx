@@ -5,9 +5,6 @@ import type { CSSProperties } from 'react'
  *
  * 絵文字はフォント任せで、端末ごとに形も色も大きさも変わってしまう。
  * ここは自前の SVG に固定して、線幅と色（`currentColor`）をサイトの見た目に揃える。
- *
- * 注意: お店のデータが持つ `emoji`（写真が無いときの代替）は**別物**。
- * あれは紹介文と同じ「内容」なので絵文字のままでよい。
  */
 export type IconName =
   | 'logo'

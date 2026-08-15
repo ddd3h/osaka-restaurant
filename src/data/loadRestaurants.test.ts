@@ -6,7 +6,6 @@ const valid: Restaurant = {
   id: 'wanaka',
   name: 'たこ焼道楽 わなか',
   kana: 'たこやきどうらく わなか',
-  emoji: '🐙',
   tags: ['粉モン'],
   area: '難波',
   lat: 34.6656,

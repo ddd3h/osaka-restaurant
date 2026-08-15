@@ -29,20 +29,18 @@ function renderTile(
 describe('RestaurantTile', () => {
   it('gallery に写真があれば img を出し、その src は gallery の1枚目', () => {
     // photo を渡すと fixtures 側の toIndexed() が gallery を1枚ぶん組み立てる
-    const r = makeRestaurant({ photo: 'photos/wanaka.svg', emoji: '🐙' })
+    const r = makeRestaurant({ photo: 'photos/wanaka.svg' })
     const { container } = renderTile(r)
 
     const img = container.querySelector('img')
     expect(img).not.toBeNull()
     expect(img?.getAttribute('src')).toBe(r.gallery[0])
-    expect(screen.queryByText('🐙')).toBeNull()
   })
 
-  it('写真が無ければ絵文字にフォールバックする', () => {
-    const { container } = renderTile(makeRestaurant({ photo: undefined, emoji: '🦊' }))
+  it('写真が無ければ img を出さない', () => {
+    const { container } = renderTile(makeRestaurant({ photo: undefined }))
 
     expect(container.querySelector('img')).toBeNull()
-    expect(screen.getByText('🦊')).toBeInTheDocument()
   })
 
   it('店名・エリア・タグを表示する', () => {

@@ -1,4 +1,4 @@
-/** restaurants.json の 1 レコード。id / name / emoji / tags / area / lat / lng / comment が必須。 */
+/** restaurants.json の 1 レコード。id / name / tags / area / lat / lng / comment が必須。 */
 export type Restaurant = {
   /** URL に載るスラッグ。半角英数とハイフンのみ。例: "wanaka-sennichimae" */
   id: string
@@ -6,8 +6,6 @@ export type Restaurant = {
   name: string
   /** ひらがな読み。検索のゆれ吸収に使う（任意だが入れると検索が強くなる） */
   kana?: string
-  /** photo が無いときだけ使う代替アイコン。例: "🐙" */
-  emoji: string
   /** 自由タグ。ここに書いたものがそのままフィルターのチップになる */
   tags: string[]
   /** エリア名。例: "難波" */
