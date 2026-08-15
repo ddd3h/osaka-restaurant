@@ -47,16 +47,18 @@ describe('RestaurantCard のサムネ', () => {
     )
   })
 
-  it('gallery が複数枚あってもカードは1枚目だけ使う', () => {
-    // カードは代表写真のみ。複数枚を並べるのは DetailPanel 側の仕事
+  it('gallery が複数枚あっても、カードは縮小版を1枚だけ使う', () => {
+    // カードのサムネは 92px 角なので原寸は要らない。
+    // 複数枚と原寸を扱うのは DetailPanel 側の仕事。
     const { container } = renderCard({
       ...makeRestaurant({ emoji: '🍜' }),
-      gallery: [`${import.meta.env.BASE_URL}photos/first.svg`, '/photos/second.svg'],
+      cover: '/thumbs/first.webp',
+      gallery: ['/photos/first.jpg', '/photos/second.jpg'],
     })
 
     const imgs = container.querySelectorAll('img')
     expect(imgs).toHaveLength(1)
-    expect(imgs[0]?.getAttribute('src')).toBe(`${import.meta.env.BASE_URL}photos/first.svg`)
+    expect(imgs[0]?.getAttribute('src')).toBe('/thumbs/first.webp')
   })
 })
 

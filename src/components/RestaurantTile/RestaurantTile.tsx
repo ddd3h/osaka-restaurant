@@ -23,8 +23,8 @@ export function RestaurantTile({
   onHover,
   onToggleFavorite,
 }: Props) {
-  // タイルも代表写真の1枚だけ。gallery は解決済み URL なので加工せずそのまま使う
-  const photo = r.gallery[0]
+  // サムネは縮小版（cover）で足りる。原寸はギャラリーだけが使う
+  const photo = r.cover
 
   return (
     <article

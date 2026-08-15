@@ -33,13 +33,14 @@ function createPin(r: ListedRestaurant, handlers: Handlers): HTMLButtonElement {
   bubble.className = styles.pinBubble
   bubble.setAttribute('aria-hidden', 'true')
 
-  // ピンに載せるのは代表写真の1枚だけ。gallery は解決済み URL なのでそのまま使う
-  const photo = r.gallery[0]
+  // ピンは 46px 角。縮小版（cover）を読む。gallery は解決済み URL なのでそのまま使う
+  const photo = r.cover
   if (photo) {
     const img = document.createElement('img')
     img.src = photo
     img.alt = ''
     img.draggable = false
+    img.decoding = 'async'
     bubble.appendChild(img)
   } else {
     // 写真が無い店は絵文字で代替する

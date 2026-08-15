@@ -1,7 +1,7 @@
 import type { IndexedRestaurant, Restaurant } from '../types'
 import { assetUrl } from '../lib/assetUrl'
 import { normalize } from '../lib/normalize'
-import { photosFor } from './photos'
+import { coverFor, photosFor } from './photos'
 import rawData from './restaurants.json'
 
 /** 大阪府のだいたいの外接矩形。ここから外れた座標は入力ミスとみなす。 */
@@ -13,7 +13,9 @@ export function toIndexed(r: Restaurant): IndexedRestaurant {
   const searchIndex = normalize(
     [r.name, r.kana ?? '', r.tags.join(' '), r.area, r.comment, r.address ?? ''].join(' '),
   )
-  return { ...r, searchIndex, gallery: galleryFor(r) }
+  const gallery = galleryFor(r)
+  // 縮小版が作れない場合（public/photos のフォールバック写真）は原寸で代用する
+  return { ...r, searchIndex, gallery, cover: coverFor(r.id) ?? gallery[0] }
 }
 
 /**

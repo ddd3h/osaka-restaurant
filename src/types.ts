@@ -43,6 +43,11 @@ export type IndexedRestaurant = Restaurant & {
    * src/photos/<id>/ があればそれ、無ければ restaurants.json の photo 1 枚、どちらも無ければ空。
    */
   gallery: string[]
+  /**
+   * 代表写真の縮小版 URL。地図のピンとカードのサムネはこれを使う。
+   * 原寸を並べると初回表示が出そろわないため。写真が無ければ undefined。
+   */
+  cover?: string
 }
 
 /** 距離計算が済んだ状態。distanceM は現在地未取得なら undefined。 */
