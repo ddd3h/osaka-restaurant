@@ -181,6 +181,10 @@
     flex-wrap: wrap;
     padding: var(--sp-2) var(--sp-3) var(--sp-3);
     padding-top: max(var(--sp-2), env(safe-area-inset-top));
+    /* タグを全部開いても画面を占領しないよう、帯の中でスクロールさせる */
+    max-height: 70dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   /* 狭い画面では見出しの1行ぶんを絞り込みに譲る。

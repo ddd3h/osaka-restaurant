@@ -163,4 +163,12 @@
     flex: 0 1 100%;
   }
 
+  /* タグを全部開くと、シートや画面の高さを超える。
+     枠の外へ溢れて切れないよう、バー自身をスクロールさせる */
+  .bar[data-layout='column'] {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
 }

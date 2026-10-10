@@ -65,6 +65,12 @@
     display: none;
   }
 
+  /* シートは低いので、絞り込みを開いてタグが増えても一覧の行を押しつぶさずに
+     収まる分だけ取らせる。はみ出した分は FilterBar 側でスクロールする */
+  .sidebar {
+    grid-template-rows: minmax(0, auto) auto minmax(0, 1fr);
+  }
+
   .scroll {
     padding-bottom: max(var(--sp-6), env(safe-area-inset-bottom));
   }
